@@ -1,0 +1,24 @@
+{
+  "name": "freetarget",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "pouchdb": "^7.2.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-compound-timer": "^1.1.15",
+    "react-dom": "^16.13.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "1.0.0",
+    "react-shapes": "^0.1.0",
+    "reactstrap": "^8.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
