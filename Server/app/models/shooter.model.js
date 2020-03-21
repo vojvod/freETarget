@@ -1,17 +1,25 @@
 module.exports = (sequelize, Sequelize) => {
     const Shooter = sequelize.define("shooter", {
         id: {
-            type: Sequelize.STRING,
+            type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4,
             primaryKey: true
         },
+        registrationnumber: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
         club: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false
         },
         firstname: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false
         },
         lastname: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false
         }
     });
 

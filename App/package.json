@@ -13,7 +13,8 @@
     "react-scripts": "1.0.0",
     "react-shapes": "^0.1.0",
     "reactstrap": "^8.4.1",
-    "mdbreact": "^4.25.4"
+    "mdbreact": "^4.25.4",
+    "axios": "^0.19.2"
   },
   "devDependencies": {},
   "scripts": {

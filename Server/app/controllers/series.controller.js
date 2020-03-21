@@ -1,134 +1,133 @@
 const db = require("../models");
-const Shooter = db.shooters;
 const Series = db.series;
+const Shots = db.shots;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Shooter
+// Create and Save a new series
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.registrationnumber || !req.body.club || !req.body.firstname || !req.body.lastname) {
+    if (!req.body.type || !req.body.shooterId) {
         res.status(400).send({
-            message: "registrationnumber, club, firstname and lastname can not be empty!"
+            message: "type and shooterid can not be empty!"
         });
         return;
     }
 
-    // Create a shooter
-    const shooter = {
-        registrationnumber: req.body.registrationnumber,
-        club: req.body.club,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname
+    // Create a series
+    const series = {
+        date: req.body.date,
+        type: req.body.type,
+        shooterId: req.body.shooterId
     };
 
-    // Save shooter in the database
-    Shooter.create(shooter)
+    // Save series in the database
+    Series.create(series)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Shooter."
+                    err.message || "Some error occurred while creating the series."
             });
         });
 };
 
-// Retrieve all Shooters from the database.
+// Retrieve all series from the database.
 exports.findAll = (req, res) => {
     const id = req.query.id;
     const condition = id ? { id: { [Op.id]: `%${id}%` } } : null;
 
-    Shooter.findAll({ where: condition })
+    Series.findAll({ where: condition })
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving shooters."
+                    err.message || "Some error occurred while retrieving series."
             });
         });
 };
 
-// Find a single Shooter with an id
+// Find a single series with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Shooter.findByPk(id, {include: [Series]})
+    Series.findByPk(id, {include: [Shots]})
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Shooter with id=" + id
+                message: "Error retrieving series with id=" + id
             });
         });
 };
 
-// Update a Shooter by the id in the request
+// Update a series by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Shooter.update(req.body, {
+    Series.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Shooter was updated successfully."
+                    message: "Series was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Shooter with id=${id}. Maybe shooter was not found or req.body is empty!`
+                    message: `Cannot update series with id=${id}. Maybe series was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Shooter with id=" + id
+                message: "Error updating series with id=" + id
             });
         });
 };
 
-// Delete a Shooter with the specified id in the request
+// Delete a series with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Shooter.destroy({
+    Series.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Shooter was deleted successfully!"
+                    message: "Series was deleted successfully!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Shooter with id=${id}. Maybe shooter was not found!`
+                    message: `Cannot delete series with id=${id}. Maybe shooter was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Shooter with id=" + id
+                message: "Could not delete series with id=" + id
             });
         });
 };
 
-// Delete all Shooters from the database.
+// Delete all Series from the database.
 exports.deleteAll = (req, res) => {
-    Shooter.destroy({
+    Series.destroy({
         where: {},
         truncate: false
     })
         .then(nums => {
-            res.send({ message: `${nums} Shooters were deleted successfully!` });
+            res.send({ message: `${nums} Series were deleted successfully!` });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while removing all Shooters."
+                    err.message || "Some error occurred while removing all series."
             });
         });
 };
