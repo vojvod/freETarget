@@ -19,6 +19,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.users = require("./user.model.js")(sequelize, Sequelize);
 db.shooters = require("./shooter.model.js")(sequelize, Sequelize);
 db.series = require("./series.model.js")(sequelize, Sequelize);
 db.shots = require("./shot.model.js")(sequelize, Sequelize);
