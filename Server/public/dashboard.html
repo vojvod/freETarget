@@ -18,19 +18,50 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout">Log Out</a></li>
+                <li><a href="/api/logout">Log Out</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 
 <div class="container row">
-    <ul>
-        <li><a href="/api/users">Users</a></li>
-        <li><a href="/api/shooters">Shooters</a></li>
-        <li><a href="/api/series">Series</a></li>
-        <li><a href="/api/shots">Shots</a></li>
-    </ul>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Methods</th>
+            <th scope="col">Urls</th>
+            <th scope="col">Action</th>
+            <th scope="col">#</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class="bg-info"><td>GET</td><td>api/shooters</td><td>get all Shooters</td><td><a href="/api/shooters" target="_blank">Shooters</a></td></tr>
+        <tr><td>GET</td><td>api/shooters/:id</td><td>get Shooter by id</td></tr>
+        <tr><td>POST</td><td>api/shooters</td><td>add new Shooter</td></tr>
+        <tr><td>PUT</td><td>api/shooters/:id</td><td>update Shooter by id</td></tr>
+        <tr><td>DELETE</td><td>api/shooters/:id</td><td>remove Shooter by id</td></tr>
+        <tr><td>DELETE</td><td>api/shooters</td><td>remove all Shooters</td></tr>
+
+        <tr class="bg-info"><td>GET</td><td>api/series</td><td>get all Series</td><td><a href="/api/series" target="_blank">Series</a></td></tr>
+        <tr><td>GET</td><td>api/series/:id</td><td>get Series by id</td></tr>
+        <tr><td>POST</td><td>api/series</td><td>add new Series</td></tr>
+        <tr><td>PUT</td><td>api/series/:id</td><td>update Series by id</td></tr>
+        <tr><td>DELETE</td><td>api/series/:id</td><td>remove Series by id</td></tr>
+        <tr><td>DELETE</td><td>api/series</td><td>remove all Series</td></tr>
+
+        <tr class="bg-info"><td>GET</td><td>api/shots</td><td>get all Shots</td><td><a href="/api/shots" target="_blank">Shots</a></td></tr>
+        <tr><td>GET</td><td>api/shots/:id</td><td>get Shot by id</td></tr>
+        <tr><td>POST</td><td>api/shots</td><td>add new Shot</td></tr>
+        <tr><td>PUT</td><td>api/shots/:id</td><td>update Shot by id</td></tr>
+        <tr><td>DELETE</td><td>api/shots/:id</td><td>remove Shot by id</td></tr>
+        <tr><td>DELETE</td><td>api/shots</td><td>remove all Shots</td></tr>
+
+        <tr class="bg-info"><td>GET</td><td>api/logout</td><td>destroy session</td><td><a href="/api/logout">Logout</a></td></tr>
+        <tr><td>POST</td><td>api/session</td><td>set session</td></tr>
+
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

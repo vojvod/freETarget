@@ -18,7 +18,7 @@ module.exports = app => {
     // Delete a shot with id
     router.delete("/:id", shots.delete);
 
-    // Create a new shot
+    // Delete all shots
     router.delete("/", shots.deleteAll);
 
     app.use('/api/shots', router);

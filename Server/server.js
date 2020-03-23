@@ -57,7 +57,7 @@ app.use((req, res, next) => {
 // middleware function to check for logged-in users
 var sessionChecker = (req, res, next) => {
     if (req.session.user && req.cookies.freETarget_user_sid) {
-        res.redirect('/dashboard');
+        res.redirect('/api/dashboard');
     } else {
         next();
     }
@@ -66,79 +66,81 @@ var sessionChecker = (req, res, next) => {
 
 // route for Home-Page
 app.get('/', sessionChecker, (req, res) => {
-    res.redirect('/login');
+    res.redirect('/api/login');
 });
 
 
 const User = db.users;
 
 // route for user signup
-app.route('/signup')
-    .get(sessionChecker, (req, res) => {
-        res.sendFile(__dirname + '/public/signup.html');
-    })
-    .post((req, res) => {
-        User.create({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password
-        })
-            .then(user => {
-                req.session.user = user.dataValues;
-                res.redirect('/dashboard');
-            })
-            .catch(error => {
-                res.redirect('/signup');
-            });
-    });
+// app.route('/signup')
+//     .get(sessionChecker, (req, res) => {
+//         res.sendFile(__dirname + '/public/signup.html');
+//     })
+//     .post((req, res) => {
+//         User.create({
+//             username: req.body.username,
+//             email: req.body.email,
+//             password: req.body.password
+//         })
+//             .then(user => {
+//                 req.session.user = user.dataValues;
+//                 res.redirect('/api/dashboard');
+//             })
+//             .catch(error => {
+//                 res.redirect('/signup');
+//             });
+//     });
 
 
 // route for user Login
-app.route('/login')
-    .get(sessionChecker, (req, res) => {
-        res.sendFile(__dirname + '/public/login.html');
-    })
-    .post((req, res) => {
-        var username = req.body.username,
-            password = req.body.password;
-
-        User.findOne({ where: { username: username } }).then(function (user) {
-            if (!user) {
-                res.redirect('/login');
-            } else if (!user.validPassword(password)) {
-                res.redirect('/login');
-            } else {
-                req.session.user = user.dataValues;
-                res.redirect('/dashboard');
-            }
-        });
-    });
+// app.route('/login')
+//     .get(sessionChecker, (req, res) => {
+//         res.sendFile(__dirname + '/public/login.html');
+//     })
+//     .post((req, res) => {
+//         var username = req.body.username,
+//             password = req.body.password;
+//
+//         User.findOne({ where: { username: username } }).then(function (user) {
+//             if (!user) {
+//                 res.redirect('/login');
+//             } else if (!user.validPassword(password)) {
+//                 res.redirect('/login');
+//             } else {
+//                 req.session.user = user.dataValues;
+//                 res.redirect('/api/dashboard');
+//             }
+//         });
+//     });
 
 
 // route for user's dashboard
-app.get('/dashboard', (req, res) => {
-    if (req.session.user && req.cookies.freETarget_user_sid) {
-        res.sendFile(__dirname + '/public/dashboard.html');
-    } else {
-        res.redirect('/login');
-    }
-});
+// app.get('/dashboard', (req, res) => {
+//     if (req.session.user && req.cookies.freETarget_user_sid) {
+//         res.sendFile(__dirname + '/public/dashboard.html');
+//     } else {
+//         res.redirect('/login');
+//     }
+// });
 
 
 // route for user logout
-app.get('/logout', (req, res) => {
-    if (req.session.user && req.cookies.freETarget_user_sid) {
-        res.clearCookie('freETarget_user_sid');
-        res.redirect('/');
-    } else {
-        res.redirect('/login');
-    }
-});
+// app.get('/logout', (req, res) => {
+//     if (req.session.user && req.cookies.freETarget_user_sid) {
+//         res.clearCookie('freETarget_user_sid');
+//         res.redirect('/');
+//     } else {
+//         res.redirect('/login');
+//     }
+// });
 
 // app.get("/", (req, res) => {
 //     res.json({message: "Welcome to freETarget!"});
 // });
 //
+
+require("./app/routes/security.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/shooter.routes")(app);
 require("./app/routes/series.routes")(app);
