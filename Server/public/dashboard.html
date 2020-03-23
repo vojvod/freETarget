@@ -27,7 +27,7 @@
 <div class="container row">
     <table class="table">
         <thead>
-        <tr>
+        <tr class="bg-primary">
             <th scope="col">Methods</th>
             <th scope="col">Urls</th>
             <th scope="col">Action</th>
@@ -35,6 +35,15 @@
         </tr>
         </thead>
         <tbody>
+
+        <tr class="bg-info"><td>GET</td><td>api/users</td><td>get all Users</td><td><a href="/api/users" target="_blank">Users</a></td></tr>
+        <tr><td>GET</td><td>api/users/:id</td><td>get User by id</td></tr>
+        <tr><td>POST</td><td>api/users</td><td>add new User</td></tr>
+        <tr><td>PUT</td><td>api/users/:id</td><td>update User by id</td></tr>
+        <tr><td>DELETE</td><td>api/users/:id</td><td>remove User by id</td></tr>
+
+        <tr class="bg-info"><td>GET</td><td>api/logout</td><td>destroy session</td><td><a href="/api/logout">Logout</a></td></tr>
+        <tr><td>POST</td><td>api/session</td><td>set session</td></tr>
 
         <tr class="bg-info"><td>GET</td><td>api/shooters</td><td>get all Shooters</td><td><a href="/api/shooters" target="_blank">Shooters</a></td></tr>
         <tr><td>GET</td><td>api/shooters/:id</td><td>get Shooter by id</td></tr>
@@ -56,9 +65,6 @@
         <tr><td>PUT</td><td>api/shots/:id</td><td>update Shot by id</td></tr>
         <tr><td>DELETE</td><td>api/shots/:id</td><td>remove Shot by id</td></tr>
         <tr><td>DELETE</td><td>api/shots</td><td>remove all Shots</td></tr>
-
-        <tr class="bg-info"><td>GET</td><td>api/logout</td><td>destroy session</td><td><a href="/api/logout">Logout</a></td></tr>
-        <tr><td>POST</td><td>api/session</td><td>set session</td></tr>
 
         </tbody>
     </table>

@@ -2,6 +2,15 @@
 
 | Methods       | Urls              | Action               |
 | ------------- |:-----------------:| --------------------:|
+| GET           | api/users         | get all Users        |
+| GET           | api/users/:id     | get User by id       |
+| POST          | api/users         | add new User         |
+| PUT           | api/users/:id     | update User by id    |
+| DELETE        | api/users/:id     | remove User by id    |
+| ------------- | ----------------- | -------------------- |
+| GET           | api/logout        | destroy session      |
+| POST          | api/session       | set session          |
+| ------------- | ----------------- | -------------------- |
 | GET           | api/shooters      | get all Shooters     |
 | GET           | api/shooters/:id  | get Shooter by id    |
 | POST          | api/shooters      | add new Shooter      |
@@ -22,6 +31,3 @@
 | PUT           | api/shots/:id     | update Shot by id    |
 | DELETE        | api/shots/:id     | remove Shot by id    |
 | DELETE        | api/shots         | remove all Shots     |
-| ------------- | ----------------- | -------------------- |
-| GET           | api/logout        | destroy session      |
-| POST          | api/session       | set session          |
