@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Row, Col, Container, Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import Header from "../components/header";
+import TargetHeader from "../components/targetHeader";
 import PistolTarget from "../components/targets/pistol";
 import ScoreTable from "../components/scoreTable";
 import '../css/main.css';
@@ -84,7 +84,7 @@ class Pistol extends Component {
                         <PistolTarget shot={{x: this.state.x, y: this.state.y}}/>
                     </Col>
                     <Col xs="6">
-                        <Header totalScore={this.state.totalScore} shot={this.state.shot} score={this.state.score}/>
+                        <TargetHeader totalScore={this.state.totalScore} shot={this.state.shot} score={this.state.score}/>
                         <ScoreTable shot={this.state.shot} score={this.state.score}/>
                     </Col>
                 </Row>
