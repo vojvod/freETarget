@@ -4,6 +4,7 @@ import Home from "./layouts/home";
 import Pistol from "./layouts/pistol";
 import Rifle from "./layouts/rifle";
 import Users from "./layouts/users";
+import Shooters from "./layouts/shooters";
 import History from "./layouts/history";
 
 class Routes extends Component {
@@ -16,6 +17,7 @@ class Routes extends Component {
                     <Route path="/pistol" component={Pistol}/>
                     <Route path="/rifle" component={Rifle}/>
                     <Route path="/users" component={Users}/>
+                    <Route path="/shooters" component={Shooters}/>
                     <Route path="/history" component={History}/>
                 </div>
             </Router>

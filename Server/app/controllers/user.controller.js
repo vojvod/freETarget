@@ -66,62 +66,50 @@ exports.findOne = (req, res) => {
 
 // Update a User by the id in the request
 exports.update = (req, res) => {
-    if (req.session.user && req.cookies.freETarget_user_sid) {
-        const id = req.params.id;
+    const id = req.params.id;
 
-        User.update(req.body, {
-            where: {id: id}
-        })
-            .then(num => {
-                if (num == 1) {
-                    res.send({
-                        message: "User was updated successfully."
-                    });
-                } else {
-                    res.send({
-                        message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
-                    });
-                }
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message: "Error updating User with id=" + id
+    User.update(req.body, {
+        where: {id: id}
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "User was updated successfully."
                 });
+            } else {
+                res.send({
+                    message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating User with id=" + id
             });
-    } else {
-        res.status(500).send({
-            message: "You have to login!"
         });
-    }
 };
 
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {
-    if (req.session.user && req.cookies.freETarget_user_sid) {
-        const id = req.params.id;
+    const id = req.params.id;
 
-        User.destroy({
-            where: {id: id}
-        })
-            .then(num => {
-                if (num == 1) {
-                    res.send({
-                        message: "User was deleted successfully!"
-                    });
-                } else {
-                    res.send({
-                        message: `Cannot delete User with id=${id}. Maybe User was not found!`
-                    });
-                }
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message: "Could not delete User with id=" + id
+    User.destroy({
+        where: {id: id}
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "User was deleted successfully!"
                 });
+            } else {
+                res.send({
+                    message: `Cannot delete User with id=${id}. Maybe User was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete User with id=" + id
             });
-    } else {
-        res.status(500).send({
-            message: "You have to login!"
         });
-    }
 };

@@ -1,14 +1,13 @@
+require('dotenv').config();
 const db = require("../models");
 const User = db.users;
 const Op = db.Sequelize.Op;
+const utils = require("../../utils");
 var path = require("path");
+const jwt = require('jsonwebtoken');
 
 exports.dashboard = (req, res) => {
-    if (req.session.user && req.cookies.freETarget_user_sid) {
-        res.sendFile(path.join(__dirname, '..', '..', 'public/dashboard.html'));
-    } else {
-        res.redirect('/api/login');
-    }
+    res.sendFile(path.join(__dirname, '..', '..', 'public/dashboard.html'));
 };
 
 exports.login = (req, res) => {
@@ -21,19 +20,22 @@ exports.login = (req, res) => {
         } else if (!user.validPassword(password)) {
             res.redirect('/api/login');
         } else {
-            req.session.user = user.dataValues;
-            res.redirect('/api/dashboard');
+
+            // generate token
+            const token = utils.generateToken(user.dataValues);
+            // get basic user details
+            const userObj = utils.getCleanUser(user.dataValues);
+            // return the token along with user details
+            // return res.json({ user: userObj, token });
+            res.redirect('/api/dashboard?token=' + token);
+
         }
     });
 };
 
 exports.logout = (req, res) => {
-    if (req.session.user && req.cookies.freETarget_user_sid) {
-        res.clearCookie('freETarget_user_sid');
-        res.redirect('/');
-    } else {
-        res.redirect('/api/login');
-    }
+    var token = req.headers['token'] || req.body.token || req.query.token;
+    utils.deleteToken(token);
 };
 
 exports.signup = (req, res) => {
@@ -52,23 +54,27 @@ exports.signup = (req, res) => {
 };
 
 exports.session = (req, res) => {
-    if (!req.session.user && !req.cookies.freETarget_user_sid) {
-        var username = req.body.username,
-            password = req.body.password;
+    var username = req.body.username,
+        password = req.body.password;
 
-        User.findOne({where: {username: username}}).then(function (user) {
-            if (!user) {
-                res.redirect('/api/login');
-            } else if (!user.validPassword(password)) {
-                res.redirect('/api/login');
-            } else {
-                req.session.user = user.dataValues;
-                res.redirect('/api/dashboard');
-            }
-        });
-    } else {
-        res.status(500).send({
-            message: "Session is already set!"
-        });
-    }
+    User.findOne({where: {username: username}}).then(function (user) {
+        if (!user) {
+            return res.status(400).json({
+                error: true,
+                message: "Username or Password is Wrong."
+            });
+        } else if (!user.validPassword(password)) {
+            return res.status(400).json({
+                error: true,
+                message: "Username or Password is Wrong."
+            });
+        } else {
+            // generate token
+            const token = utils.generateToken(user.dataValues);
+            // get basic user details
+            const userObj = utils.getCleanUser(user.dataValues);
+            // return the token along with user details
+            return res.json({user: userObj, token});
+        }
+    });
 };

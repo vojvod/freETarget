@@ -11,9 +11,9 @@ module.exports = app => {
 
     router.route('/login')
         .get((req, res) => {
-            if (!req.session.user && !req.cookies.freETarget_user_sid) {
+            // if (!req.session.user && !req.cookies.freETarget_user_sid) {
                 res.sendFile(path.join(__dirname, '..', '..', '/public/login.html'));
-            }
+            // }
         })
         .post(security.login);
 
@@ -21,9 +21,9 @@ module.exports = app => {
 
     router.route('/signup')
         .get((req, res) => {
-            if (!req.session.user && !req.cookies.freETarget_user_sid) {
+            // if (!req.session.user && !req.cookies.freETarget_user_sid) {
                 res.sendFile(path.join(__dirname, '..', '..', '/public/signup.html'));
-            }
+            // }
         })
         .post(security.signup);
 

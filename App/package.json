@@ -3,18 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "mdbreact": "^4.25.4",
     "pouchdb": "^7.2.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-compound-timer": "^1.1.15",
     "react-dom": "^16.13.0",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "1.0.0",
     "react-shapes": "^0.1.0",
     "reactstrap": "^8.4.1",
-    "mdbreact": "^4.25.4",
-    "axios": "^0.19.2"
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {},
   "scripts": {
