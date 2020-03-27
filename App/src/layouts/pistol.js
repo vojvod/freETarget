@@ -77,7 +77,7 @@ class Pistol extends Component {
             <Container className="themed-container" fluid={true}>
                 <Button className="print-button" color="info" size="sm" onClick={() => window.print()}>PRINT</Button>
                 <Link to="/">
-                    <Button className="back-button" color="info" size="sm">BACK</Button>
+                    <Button className="back-button" color="info" size="sm">Back</Button>
                 </Link>
                 <Row>
                     <Col xs="6">

@@ -27,12 +27,18 @@ class Home extends Component {
         this.state = {
             username: null,
             password: null,
-            userId: this.props.token
+            token: this.props.token,
+            userId: this.props.userId
         }
     }
 
-    componentDidMount() {
-        console.log(this.props);
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.props.token !== prevProps.token || this.props.userId !== prevProps.userId){
+            this.setState({
+                token: this.props.token,
+                userId: this.props.userId
+            });
+        }
     }
 
     change = (e) => {
@@ -47,19 +53,10 @@ class Home extends Component {
             password: this.state.password
         }).then((results)=>{
             this.setState({
-                userId: results.data.user ? results.data.user.userId : false,
-                showLogin: false
+                userId: results.data.user ? results.data.user.userId : false
             });
-
             this.props.setToken(results.data.token);
             this.props.setUserID(results.data.user.userId);
-            // localStorage.setItem('freETarget_token', results.data.token);
-            // localStorage.setItem('freETarget_userId', results.data.user.userId);
-
-            // API.get('/shooters?token=' + results.data.token).then((e)=>{
-            //     console.log(e);
-            //     console.log(localStorage.getItem('freETarget'));
-            // })
         });
     };
 
@@ -120,7 +117,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => ({
     token: state.dashboard.token,
-    userID: state.dashboard.userId
+    userId: state.dashboard.userId
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

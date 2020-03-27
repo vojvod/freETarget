@@ -83,7 +83,7 @@ class History extends Component {
         return (
             <Container style={{maxWidth: '100%'}}>
                 <Link to="/">
-                    <Button className="back-button" color="info" size="sm">BACK</Button>
+                    <Button className="back-button" color="info" size="sm">Back</Button>
                 </Link>
                 <div style={{paddingTop: "50px"}}>
                     <MDBDataTable

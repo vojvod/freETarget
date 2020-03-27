@@ -79,4 +79,17 @@
     top: 5px;
     left: 5px;
     z-index: 100;
+    width: 6em;
+}
+
+.add-button{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 100;
+    width: 6em;
+}
+
+.delete-button{
+    width: 4em;
 }

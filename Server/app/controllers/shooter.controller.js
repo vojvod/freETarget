@@ -6,9 +6,9 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Shooter
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.registrationnumber || !req.body.club || !req.body.firstname || !req.body.lastname) {
+    if (!req.body.userId || !req.body.registrationnumber || !req.body.club || !req.body.firstname || !req.body.lastname) {
         res.status(400).send({
-            message: "registrationnumber, club, firstname and lastname can not be empty!"
+            message: "userId, registrationnumber, club, firstname and lastname can not be empty!"
         });
         return;
     }

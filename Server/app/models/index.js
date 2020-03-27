@@ -24,6 +24,7 @@ db.shooters = require("./shooter.model.js")(sequelize, Sequelize);
 db.series = require("./series.model.js")(sequelize, Sequelize);
 db.shots = require("./shot.model.js")(sequelize, Sequelize);
 
+db.users.Shooters = db.users.hasMany(db.shooters);
 db.shooters.Series = db.shooters.hasMany(db.series);
 db.series.Shots = db.series.hasMany(db.shots);
 
