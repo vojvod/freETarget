@@ -18,7 +18,8 @@ exports.create = (req, res) => {
         registrationnumber: req.body.registrationnumber,
         club: req.body.club,
         firstname: req.body.firstname,
-        lastname: req.body.lastname
+        lastname: req.body.lastname,
+        userId: req.body.userId
     };
 
     // Save shooter in the database
@@ -36,8 +37,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Shooters from the database.
 exports.findAll = (req, res) => {
-    const id = req.query.id;
-    const condition = id ? {id: {[Op.id]: `%${id}%`}} : null;
+    const userId = req.query.userId;
+    const condition = userId ? {userId: userId} : null;
 
     Shooter.findAll({where: condition})
         .then(data => {
