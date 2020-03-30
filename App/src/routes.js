@@ -14,8 +14,8 @@ class Routes extends Component {
             <Router>
                 <div>
                     <Route exact path="/" component={Home}/>
-                    <Route path="/pistol" component={Pistol}/>
-                    <Route path="/rifle" component={Rifle}/>
+                    <Route path="/pistol/:shooterId" component={Pistol}/>
+                    <Route path="/rifle/:shooterId" component={Rifle}/>
                     <Route path="/users" component={Users}/>
                     <Route path="/shooters" component={Shooters}/>
                     <Route path="/history" component={History}/>

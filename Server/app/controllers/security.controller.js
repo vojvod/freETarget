@@ -1,6 +1,7 @@
 require('dotenv').config();
 const db = require("../models");
 const User = db.users;
+const Shooter = db.shooters;
 const Op = db.Sequelize.Op;
 const utils = require("../../utils");
 var path = require("path");
@@ -57,7 +58,7 @@ exports.session = (req, res) => {
     var username = req.body.username,
         password = req.body.password;
 
-    User.findOne({where: {username: username}}).then(function (user) {
+    User.findOne({where: {username: username}, include: [Shooter]}).then(function (user) {
         if (!user) {
             return res.status(400).json({
                 error: true,
@@ -74,7 +75,7 @@ exports.session = (req, res) => {
             // get basic user details
             const userObj = utils.getCleanUser(user.dataValues);
             // return the token along with user details
-            return res.json({user: userObj, token});
+            return res.json({user: userObj, shooters: user.dataValues.shooters, token});
         }
     });
 };

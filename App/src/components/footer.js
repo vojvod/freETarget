@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Button} from 'reactstrap';
 import {bindActionCreators} from "redux";
-import {removeToken, removeUserID} from '../ducks/dashboard'
+import {removeAppToken} from '../ducks/dashboard'
 import {connect} from "react-redux";
 
 class Footer extends Component {
@@ -33,9 +33,9 @@ class Footer extends Component {
     render() {
         return (
             <div style={{marginTop: '5em'}}>
-                <Link to={'/users'}>
-                    <Button color="primary" style={{width: '10em'}}>Users</Button>
-                </Link>{' '}{' '}
+                {/*<Link to={'/users'}>*/}
+                {/*    <Button color="primary" style={{width: '10em'}}>Users</Button>*/}
+                {/*</Link>{' '}{' '}*/}
                 <Link to={'/shooters'}>
                     <Button color="warning" style={{width: '10em'}}>Shooters</Button>
                 </Link>{' '}{' '}
@@ -46,8 +46,7 @@ class Footer extends Component {
                     this.state.token !== null && this.state.userId !== null ?
                         <Link to={'/'}>
                             <Button color="success" style={{width: '10em'}} onClick={() => {
-                                this.props.removeToken();
-                                this.props.removeUserID();
+                                this.props.removeAppToken();
                             }}>Logout</Button>{' '}
                         </Link>
                         :
@@ -64,8 +63,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    removeToken,
-    removeUserID
+    removeAppToken
 }, dispatch);
 
 Footer = connect(mapStateToProps, mapDispatchToProps)(Footer);

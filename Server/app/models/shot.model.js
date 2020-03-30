@@ -14,6 +14,16 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.DOUBLE,
             allowNull: false,
             defaultValue: 0
+        },
+        x: {
+            type: Sequelize.DOUBLE,
+            allowNull: false,
+            defaultValue: 0
+        },
+        y: {
+            type: Sequelize.DOUBLE,
+            allowNull: false,
+            defaultValue: 0
         }
     });
 

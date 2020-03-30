@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {setToken, setUserID} from '../ducks/dashboard'
-import API from "../utils/API";
+import {fetchAppToken} from '../ducks/dashboard';
+import {fetchAppShooters} from '../ducks/shooters';
 import Header from "../components/header";
 import Footer from '../components/footer';
 import {
@@ -28,15 +28,18 @@ class Home extends Component {
             username: null,
             password: null,
             token: this.props.token,
-            userId: this.props.userId
+            userId: this.props.userId,
+            shooters: this.props.shooters,
+            shooterId: ''
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.props.token !== prevProps.token || this.props.userId !== prevProps.userId){
+        if (this.props.token !== prevProps.token || this.props.userId !== prevProps.userId || this.props.shooters.length !== this.state.shooters.length) {
             this.setState({
                 token: this.props.token,
-                userId: this.props.userId
+                userId: this.props.userId,
+                shooters: this.props.shooters
             });
         }
     }
@@ -48,15 +51,8 @@ class Home extends Component {
     };
 
     login = () => {
-        API.post('/session', {
-            username: this.state.username,
-            password: this.state.password
-        }).then((results)=>{
-            this.setState({
-                userId: results.data.user ? results.data.user.userId : false
-            });
-            this.props.setToken(results.data.token);
-            this.props.setUserID(results.data.user.userId);
+        this.props.fetchAppToken(this.state.username, this.state.password).then(()=>{
+            this.props.fetchAppShooters(this.state.token, this.state.userId)
         });
     };
 
@@ -67,7 +63,22 @@ class Home extends Component {
                 <Header/>
                 <Row>
                     <Col>
-                        <Link to="/pistol">
+                        <Form>
+                            <FormGroup>
+                                <Label for="shooterId"><h3>Select Shooter</h3></Label>
+                                <Input type="select" name="shooterId" id="shooterId" onChange={this.change} value={this.state.shooterId}>
+                                    <option value={''}>please select...</option>
+                                    {
+                                        this.state.shooters.map(e=> <option key={e.id} value={e.id}>{e.firstname} {e.lastname} ({e.club} - {e.registrationnumber})</option>)
+                                    }
+                                </Input>
+                            </FormGroup>
+                        </Form>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Link to={'/pistol/' + this.state.shooterId} className={this.state.shooterId !== '' ? '' : 'disabled-link'}>
                             <Card className="startCard">
                                 <CardImg top width="100%" src="../img/pistol.svg"
                                          alt="Card image cap"/>
@@ -78,7 +89,7 @@ class Home extends Component {
                         </Link>
                     </Col>
                     <Col>
-                        <Link to="/rifle">
+                        <Link to={'/rifle/' + this.state.shooterId} className={this.state.shooterId !== '' ? '' : 'disabled-link'}>
                             <Card className="startCard">
                                 <CardImg top width="100%" src="../img/rifle.svg"
                                          alt="Card image cap"/>
@@ -91,7 +102,7 @@ class Home extends Component {
                 </Row>
                 <Footer/>
 
-                <Modal isOpen={!this.state.userId} >
+                <Modal isOpen={!this.state.userId}>
                     <ModalHeader>freETarget Login </ModalHeader>
                     <ModalBody>
                         <Form>
@@ -117,12 +128,13 @@ class Home extends Component {
 
 const mapStateToProps = (state) => ({
     token: state.dashboard.token,
-    userId: state.dashboard.userId
+    userId: state.dashboard.userId,
+    shooters: state.shooters.shooters
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    setToken,
-    setUserID
+    fetchAppToken,
+    fetchAppShooters
 }, dispatch);
 
 Home = connect(mapStateToProps, mapDispatchToProps)(Home);

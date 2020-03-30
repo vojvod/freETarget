@@ -97,3 +97,11 @@
 .button{
     width: 6em;
 }
+
+.disabled-link {
+    pointer-events: none;
+}
+
+.modal-open {
+     /*overflow: auto;*/
+}

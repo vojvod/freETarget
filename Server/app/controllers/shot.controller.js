@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Shot
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.seriesId || !req.body.no || !req.body.score) {
+    if (!req.body.seriesId || !req.body.no || !req.body.score || !req.body.x || !req.body.y) {
         res.status(400).send({
             message: "seriesid, no and score can not be empty!"
         });
@@ -16,7 +16,9 @@ exports.create = (req, res) => {
     const shot = {
         seriesId: req.body.seriesId,
         no: req.body.no,
-        score: req.body.score
+        score: req.body.score,
+        x: req.body.x,
+        y: req.body.y
     };
 
     // Save Shot in the database

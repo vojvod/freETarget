@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 
 import {
-    dashboard
+    dashboard,
+    shooters
 } from './ducks';
 
 const rootReducer = combineReducers({
-    dashboard
+    dashboard,
+    shooters
 });
 
 export default rootReducer

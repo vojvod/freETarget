@@ -1,5 +1,6 @@
 const db = require("../models");
 const User = db.users;
+const Shooter = db.shooters;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new user
@@ -37,7 +38,7 @@ exports.findAll = (req, res) => {
     const id = req.query.id;
     const condition = id ? {id: {[Op.id]: `%${id}%`}} : null;
 
-    User.findAll({where: condition})
+    User.findAll({where: condition, include: [Shooter]})
         .then(data => {
             res.send(data);
         })
@@ -53,7 +54,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    User.findByPk(id)
+    User.findByPk(id, {include: [Shooter]})
         .then(data => {
             res.send(data);
         })

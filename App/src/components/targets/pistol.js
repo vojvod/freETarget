@@ -14,7 +14,7 @@ class PistolTarget extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.shot.x !== prevProps.shot.x || this.props.shot.y !== prevProps.shot.y){
             let shots = this.state.shots;
-            shots.push(<div key={`shot_${Math.floor(this.props.shot.x)}_${Math.floor(this.props.shot.y)}`} style={{position: "absolute", top: `${this.props.shot.y}px`, left: `${this.props.shot.x}px`}}>
+            shots.push(<div key={`shot_${Math.floor(this.props.shot.x)}_${Math.floor(this.props.shot.y)}_${new Date().getTime()}`} style={{position: "absolute", top: `${this.props.shot.y}px`, left: `${this.props.shot.x}px`}}>
                 <Circle r={10} fill={{color: '#ff0c0e'}} stroke={{color: '#377d88'}} strokeWidth={1}/>
                 {
                     this.state.no > 9

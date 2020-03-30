@@ -19,6 +19,10 @@ class Pistol extends Component {
     }
 
     componentDidMount() {
+
+        let { shooterId } = this.props.match.params;
+        console.log(shooterId);
+
         const intervalId = setInterval(() => {
 
             // data from sensor
